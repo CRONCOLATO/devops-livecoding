@@ -26,6 +26,7 @@ jobs:
   build-and-push-docker-image:
     needs: test-backend
     runs-on: ubuntu-22.04
+    if: github.ref == 'refs/heads/main'
     steps:
       - name: Checkout code
         uses: actions/checkout@v2.5.0
@@ -36,13 +37,13 @@ jobs:
       - name: Build image and push backend
         uses: docker/build-push-action@v3
         with:
-          context: ./simple-api  # chemin vers le Dockerfile de l’API
+          context: ./simple-api
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/tp-devops-simple-api:latest
-          push: ${{ github.ref == 'refs/heads/main' }}
+          push: true
 
       - name: Build image and push database
         uses: docker/build-push-action@v3
         with:
-          context: ./database  # chemin vers le Dockerfile de la base de données
+          context: ./database
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/tp-devops-database:latest
-          push: ${{ github.ref == 'refs/heads/main' }}
+          push: true
