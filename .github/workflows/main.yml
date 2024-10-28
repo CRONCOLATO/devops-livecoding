@@ -22,8 +22,8 @@ jobs:
 
       - name: Build, test, and analyze with SonarCloud
         run: mvn -B verify sonar:sonar \
-             -Dsonar.projectKey=croncolato \
-             -Dsonar.organization=croncolato \
+             -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }} \
+             -Dsonar.organization=${{ secrets.SONAR_ORGANIZATION_KEY }} \
              -Dsonar.host.url=https://sonarcloud.io \
              -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
              --file ./simple-api/pom.xml
